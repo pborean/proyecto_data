@@ -1,0 +1,13 @@
+# macOS
+.DS_Store
+__MACOSX/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Editores
+.vscode/
+.idea/
