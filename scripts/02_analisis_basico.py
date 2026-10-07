@@ -1,6 +1,6 @@
 """
 02_analisis_basico.py: nivel 1, estadística descriptiva.
-Media y desvío de las 5 variables finales, muestra completa y por subperíodo,
+Media y desvío de las 4 variables finales, muestra completa y por subperíodo,
 y el detalle de 2023 (inflación contra tasa nominal).
 
 Salidas: resultados/tablas/resumen_por_periodo.csv, resultados/graficos/grafico_2023.png
@@ -33,17 +33,17 @@ print(resumen.round(2))
 resumen.round(4).to_csv(ruta_tabla("resumen_por_periodo.csv"), encoding="utf-8-sig")
 
 # ---------- Qué pasó en 2023 ----------
-d23 = df.loc["2023-01":"2023-12", ["pi", "i_personales", "r_personales"]] * 100
+d23 = df.loc["2023-01":"2023-12", ["pi", "i_tarjetas", "r_tarjetas"]] * 100
 print("\n--- 2023 mes a mes (%) ---")
 print(d23.round(2))
 
 fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(9, 6), sharex=True)
 ax1.plot(d23.index, d23["pi"], marker="o", label="Inflación mensual")
-ax1.plot(d23.index, d23["i_personales"], marker="o", label="Tasa nominal mensual (personales)")
+ax1.plot(d23.index, d23["i_tarjetas"], marker="o", label="Tasa nominal mensual (tarjetas)")
 ax1.set_ylabel("% mensual")
 ax1.legend()
 ax1.set_title("2023: inflación vs tasa nominal")
-ax2.bar(d23.index, d23["r_personales"], width=20)
+ax2.bar(d23.index, d23["r_tarjetas"], width=20)
 ax2.axhline(0, color="black", linewidth=0.8)
 ax2.set_ylabel("% mensual")
 ax2.set_title("Tasa real que resulta")

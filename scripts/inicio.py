@@ -80,7 +80,7 @@ plt.rcParams.update({
 })
 
 # ---------------- Variables del análisis ----------------
-COLS = ["r_personales", "r_tarjetas", "g_priv_reg", "g_publico", "g_no_reg"]
+COLS = ["r_tarjetas", "g_priv_reg", "g_publico", "g_no_reg"]
 SEGMENTOS = ["priv_reg", "publico", "no_reg"]
 
 NOMBRES = {

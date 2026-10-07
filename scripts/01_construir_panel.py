@@ -38,7 +38,7 @@ IS.columns = ["priv_reg", "publico", "no_reg"]
 dIS = IS.pct_change()
 
 # --- Unir por mes y calcular tasas reales (Fisher) ---
-df = pd.concat([pi, i_m.add_prefix("i_"), dIS.add_prefix("w_")], axis=1).loc["2017-01-01":"2026-07-01"].dropna()
+df = pd.concat([pi, i_m.add_prefix("i_"), dIS.add_prefix("w_")], axis=1, sort=True).loc["2017-01-01":"2026-07-01"].dropna()
 for p in ["personales", "tarjetas"]:
     df[f"r_{p}"] = (1 + df[f"i_{p}"]) / (1 + df["pi"]) - 1
 for s in ["priv_reg", "publico", "no_reg"]:
