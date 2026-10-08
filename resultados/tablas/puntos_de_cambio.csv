@@ -1,8 +1,12 @@
 ﻿serie,metodo,fecha,robustez
+r_tarjetas,PELT,2018-06,1/5
 r_tarjetas,PELT,2018-12,2/5
 r_tarjetas,PELT,2020-09,5/5
-r_tarjetas,PELT,2023-04,5/5
+r_tarjetas,PELT,2022-03,1/5
+r_tarjetas,PELT,2022-10,1/5
+r_tarjetas,PELT,2023-08,5/5
 r_tarjetas,PELT,2024-04,5/5
+r_tarjetas,PELT,2024-09,1/5
 r_tarjetas,BIC,2020-09,
-r_tarjetas,BIC,2023-04,
+r_tarjetas,BIC,2023-08,
 r_tarjetas,BIC,2024-04,

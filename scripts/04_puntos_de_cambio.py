@@ -23,7 +23,7 @@ import ruptures as rpt
 
 # ---------------- Parámetros que podés tocar ----------------
 SERIES = ["r_tarjetas"]   # series a analizar
-MIN_TAMANO = 12          # un régimen dura al menos 12 meses
+MIN_TAMANO = 6          # un régimen dura al menos 6 meses
 MAX_QUIEBRES = 4         # máximo de quiebres que prueba el método 2
 PENALIZACIONES = [1, 2, 3, 5, 8]   # multiplicadores de la penalización de PELT (método 1)
 TOLERANCIA = 3           # meses de margen para decir que "dos fechas son la misma"
