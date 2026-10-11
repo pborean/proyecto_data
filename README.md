@@ -71,6 +71,12 @@ Mora de todos los préstamos bancarios (no solo familias), 2020 a 2025, para Arg
 (los otros países tienen entre 1,0% y 4,0%, algunos con dato de 2024). En 2024 había bajado a 1,6%. En el gráfico de la derecha, el rango de la región se calcula con los países que tienen dato cada año
 (5 a 8). Los años sin dato quedan vacíos. Tabla: `mora_bancaria_paises.csv`.
 
+### Crédito de los bancos como porcentaje del PBI (`scripts/14_credito_pbi.py`)
+Saldo de financiaciones de las entidades financieras (sector privado total, familias y tarjetas de las familias) a fin de cada trimestre, dividido por el PBI nominal de los últimos 12 meses, desde septiembre de 2020.
+El PBI nominal se calcula como el promedio de los últimos cuatro trimestres, porque INDEC publica cada trimestre "a ritmo anual". Entre 2020-T3 y 2026-T2:
+el crédito total pasa de 13,1% a 16,0% del PBI (con un piso de 10,7% en 2023-T1), el de las familias de 6,1% a 7,1% (piso de 4,9%) y el de tarjetas de las familias se queda entre 2,1% y 2,9%.
+El aumento del crédito a las familias desde 2024 no vino de las tarjetas. Tabla: `credito_pbi.csv`. El PBI de 2025 y 2026 es preliminar.
+
 ## Estructura
 
 ```
@@ -80,7 +86,7 @@ contar-datos-2026/
 │   └── procesados/      panel_mensual.csv (generado por scripts/01)
 ├── scripts/             código, numerado en el orden en que se corre
 ├── resultados/
-│   ├── graficos/        regimenes_tarjetas, mora_por_producto, prestamistas_edad, eph_endeudamiento_decil, deuda_por_edad, mora_regional, etc.
+│   ├── graficos/        regimenes_tarjetas, credito_pbi, mora_por_producto, prestamistas_edad, eph_endeudamiento_decil, deuda_por_edad, mora_regional, etc.
 │   └── tablas/          una tabla por análisis (inflacion_por_regimen.csv, mora_por_regimen.csv, etc.)
 ├── docs/                bases del concurso
 ├── requirements.txt
@@ -105,9 +111,10 @@ python3 scripts/09_eph_endeudamiento_decil.py    # endeudamiento por decil de in
 python3 scripts/10_prestamistas.py               # quién presta (BCRA)
 python3 scripts/11_mora_por_producto.py          # mora por producto y régimen (BCRA)
 python3 scripts/12_mora_regional.py              # mora bancaria frente a la región (Banco Mundial)
+python3 scripts/14_credito_pbi.py                # crédito de los bancos como % del PBI (BCRA e INDEC)
 ```
 
-La numeración salta del 06 al 08 (no hay script 07).
+La numeración salta del 06 al 08 y del 12 al 14 (no hay scripts 07 ni 13).
 `scripts/inicio.py` concentra las librerías, los colores, las rutas y las funciones comunes.
 
 ## Datos
@@ -121,6 +128,7 @@ La numeración salta del 06 al 08 (no hay script 07).
 | `datos/crudos/bcra_deudores_sfa_asistencia_rango_etario.xlsx` | Porcentaje de cada edad con al menos un crédito, por producto | BCRA, Indicadores de Inclusión Financiera, tabla 4.2 |
 | `datos/crudos/bcra_deudores_sfa_grupo_institucional_rango_etario.xlsx` | Porcentaje de cada edad con al menos un crédito, por grupo de entidad | BCRA, Indicadores de Inclusión Financiera, hoja 4.3.4 |
 | `datos/crudos/bcra_informe_bancos_anexo.xlsx` | Mora (cartera irregular) por línea de crédito, familias y empresas | BCRA, Anexo estadístico del Informe sobre Bancos, hoja "Calidad de Cartera (por líneas)" |
+| `datos/crudos/indec_oferta_demanda_trimestral.xls` | PBI a precios corrientes, trimestral (cuadro 8, fila B1b) | INDEC, Series trimestrales de oferta y demanda globales, 2004-2026 (https://www.indec.gob.ar/Nivel4/Tema/3/9/47) |
 | `datos/crudos/bm_mora_bancaria_paises.json` | Mora bancaria total, por país | Banco Mundial, indicador FB.AST.NPER.ZS (datos del FMI, Financial Soundness Indicators), licencia CC BY 4.0 |
 | `datos/crudos/eph/EPH_usu_*_Trim_*_txt/` | EPH continua, base de hogares, 1T2024 a 1T2026 (no se sube al repo por su tamaño) | INDEC, Bases de datos |
 
@@ -128,6 +136,7 @@ Páginas de origen:
 - BCRA, Indicadores de inclusión financiera: https://www.bcra.gob.ar/indicadores-inclusion-financiera/
 - BCRA, Informe sobre Bancos (datos): https://www.bcra.gob.ar/informe-sobre-bancos/
 - INDEC, Bases de datos: https://www.indec.gob.ar/indec/web/Institucional-Indec-BasesDeDatos
+- INDEC, Oferta y demanda globales (PBI): https://www.indec.gob.ar/Nivel4/Tema/3/9/47
 - Banco Mundial, indicador FB.AST.NPER.ZS: https://data.worldbank.org/indicator/FB.AST.NPER.ZS
 
 Archivos descargados el 10 y 11 de octubre de 2026.
@@ -161,6 +170,7 @@ Documentación de referencia:
 - En el gráfico de regímenes la curva está suavizada (media móvil de 5 meses); los números
   grandes salen de los datos mensuales sin suavizar.
 - Mora: cartera irregular (situaciones 3 a 6) sobre cartera total; familias = personas humanas sin destino comercial (definiciones de la hoja "Metodología y Referencias" del archivo del BCRA).
+- Crédito/PBI: saldo a fin de trimestre dividido por el promedio de los últimos cuatro trimestres del PBI nominal (valores a ritmo anual). Solo entidades financieras.
 - EPH: porcentaje ponderado de hogares con respuesta "sí" entre los que contestaron sí o no. Ponderador `PONDERA` (según el diseño de registro, `PONDIH` se usa solo para ingresos).
   Decil: `DECCFR`, decil nacional del ingreso per cápita familiar.
 
@@ -173,6 +183,7 @@ Documentación de referencia:
 - La mora que se muestra coincide en el tiempo con la tasa real alta; no demuestra que una cause la otra. También influyen salarios, empleo y expansión previa del crédito.
 - La EPH cubre los 31 aglomerados urbanos y mide si el hogar recurrió al crédito, no el monto adeudado ni la mora. Un tercio de los hogares no declara ingresos y no entra en el análisis por decil.
 - Los datos de edad y de grupo de entidad del BCRA no incluyen mora, cada persona cuenta una vez por producto o grupo, y la serie cambia de nivel en julio de 2024 (la causa no figura en las notas del archivo).
+- El crédito/PBI cubre solo las entidades financieras que informan al BCRA (no fintech ni otros no bancarios) y usa el PBI nominal preliminar de 2025 y 2026; no se compara con series de otras fuentes (por ejemplo BIS), que definen el crédito de otra manera.
 - La comparación regional usa la mora de todos los préstamos bancarios, con definiciones que pueden diferir entre países; el conjunto de ocho países de la región lo definimos nosotros, y algunos tienen dato solo hasta 2024.
 
 ## Uso de inteligencia artificial
