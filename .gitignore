@@ -11,3 +11,5 @@ venv/
 # Editores
 .vscode/
 .idea/
+datos/crudos/eph/
+bajar_eph.sh
