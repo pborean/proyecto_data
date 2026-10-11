@@ -1,4 +1,4 @@
-# Contar con Datos 2026: costo real del crédito con tarjeta
+# Contar con Datos 2026: costo real del crédito
 
 ¿Cuándo fue cara y cuándo barata la deuda de tarjeta de crédito frente a la inflación?
 Análisis mensual de enero de 2017 a julio de 2026, más un análisis del régimen actual (desde abril de 2024):
@@ -37,7 +37,7 @@ Desde septiembre de 2020 se compara la tasa real con la mora de las familias en 
 | Abr-2024 a jul-2026 | 1,8% a 12,8% | 4,3% a 16,7% |
 
 En el régimen actual la mora de tarjetas tiene su mínimo en octubre de 2024 (1,7%), supera el 3% en abril de 2025
-y el 5% en julio de 2025. Es decir, sube con unos 8 a 12 meses de demora respecto del cambio de signo de la tasa real.
+y el 5% en julio de 2025. Es decir, sube con unos 12 a 15 meses de demora respecto del cambio de signo de la tasa real.
 La serie muestra que las dos cosas ocurrieron en ese orden, no que una cause la otra. La mora también subió en 2021, con tasa real baja.
 Tablas: `mora_por_producto.csv` y `mora_por_regimen.csv`.
 
@@ -51,7 +51,7 @@ En septiembre de 2020 las tarjetas eran 41% de la cartera y 25% de la mora. Tabl
 Porcentaje de los adultos con al menos un crédito en entidades financieras (bancos y compañías financieras) y en proveedores
 no financieros de crédito (tarjetas no bancarias y otros). De julio de 2024 a diciembre de 2025, las entidades financieras pasan de
 36,2% a 39,6% y los proveedores no financieros de 22,6% a 32,2%. Los proveedores no financieros crecen sobre todo entre los 20 y los
-49 años (12 a 14 puntos); las entidades financieras, entre los mayores de 60 (6 a 9 puntos).
+49 años (12 a 14 puntos); las entidades financieras, entre los mayores de 60 (7 a 9 puntos).
 La serie del BCRA cambia de nivel en julio de 2024 en todos los grupos, por eso la comparación empieza ese mes.
 En diciembre de 2024 hay un traspaso entre tarjetas no bancarias y otros proveedores: se usa solo el total de proveedores no financieros.
 Una persona cuenta una vez por grupo, por lo que los grupos no se suman. Tablas: `prestamistas_grupo_institucional.csv` y `prestamistas_cambio_por_edad.csv`.
@@ -66,7 +66,7 @@ a los 25–39 llegó a +2,5 en junio de 2025 y bajó a entre +1,4 y +2,6 en dici
 Se compara diciembre de 2024 con diciembre de 2025 por el cambio de nivel de julio de 2024.
 
 **Por nivel de ingreso** (`scripts/09_eph_endeudamiento_decil.py`). Porcentaje de hogares que, en los últimos tres meses, pidieron un préstamo a un banco o
-financiera (V15), compraron en cuotas o al fiado con tarjeta o libreta (V16) o pidieron un préstamo a familiares o amigos (V14), según el decil de ingreso per cápita familiar.
+financiera (V15) o a familiares o amigos (V14), y porcentaje de hogares que compran en cuotas o al fiado con tarjeta o libreta (V16; la pregunta no fija un plazo), según el decil de ingreso per cápita familiar.
 Trimestres 2T2024 a 1T2026 (el 1T2024 aparece como referencia en el gráfico por trimestre). Estratos según INDEC: bajo = deciles 1 a 4, medio = 5 a 8, alto = 9 y 10.
 
 - Cuotas o fiado con tarjeta o libreta: sube con el ingreso, de 36% en el decil 1 a 65% en el decil 10.
@@ -81,9 +81,7 @@ La EPH registra si el hogar recurrió a cada fuente, no cuánto debe ni si está
 porque no declaró ingresos y queda afuera. Tablas: `eph_endeudamiento_decil.csv` y `eph_endeudamiento_trimestre.csv`.
 
 ### Argentina frente a la región (`scripts/12_mora_regional.py`)
-Mora de todos los préstamos bancarios (no solo familias), 2020 a 2025, para Argentina y otros nueve países. En 2025 Argentina tiene 5,3%, el valor más alto del grupo
-(los otros países tienen entre 1,0% y 4,0%, algunos con dato de 2024). En 2024 había bajado a 1,6%. En el gráfico de la derecha, el rango de la región se calcula con los países que tienen dato cada año
-(5 a 8). Los años sin dato quedan vacíos. Tabla: `mora_bancaria_paises.csv`.
+Mora de todos los préstamos bancarios (no solo familias), 2020 a 2025, para Argentina y otros nueve países (ocho de la región: Brasil, Chile, México, Colombia, Uruguay, Perú, Paraguay y Bolivia; y Estados Unidos como referencia). En 2025 Argentina tiene 5,3%, el valor más alto del grupo (los otros países tienen entre 1,0% y 4,0% en su último dato; Bolivia, Perú y Uruguay solo llegan a 2024). En 2024 había bajado a 1,6%. En el gráfico de la derecha, el rango de la región se calcula con los países de la región que tienen dato cada año (5 a 8; Estados Unidos no entra). Los años sin dato quedan vacíos. Tabla: `mora_bancaria_paises.csv`.
 
 ### Crédito de los bancos como porcentaje del PBI (`scripts/14_credito_pbi.py`)
 Saldo de financiaciones de las entidades financieras (sector privado total, familias y tarjetas de las familias) a fin de cada trimestre, dividido por el PBI nominal de los últimos 12 meses, desde septiembre de 2020.
@@ -142,29 +140,48 @@ El script 15 necesita que el 09 se haya corrido antes (lee `eph_endeudamiento_de
 |---|---|---|
 | `datos/crudos/ipc_mensual.csv` | IPC nivel general, base dic-2016 = 100 | INDEC, vía datos.gob.ar (serie 148.3_INIVELNAL_DICI_M_26) |
 | `datos/crudos/tasas_interes.csv` | Tasas de interés activas (TNA %); se usa la columna de tarjetas | BCRA, vía datos.gob.ar |
-| `datos/crudos/indice_salarios.csv` | Índice de salarios por sector, oct-2016 = 100 | INDEC |
-| `datos/crudos/ripte.csv` | RIPTE, remuneración imponible promedio (no usado todavía) | Secretaría de Seguridad Social, vía datos.gob.ar |
+| `datos/crudos/indice_salarios.csv` | Índice de salarios por sector, oct-2015 a jul-2026 | INDEC |
 | `datos/crudos/bcra_deudores_sfa_asistencia_rango_etario.xlsx` | Porcentaje de cada edad con al menos un crédito, por producto | BCRA, Indicadores de Inclusión Financiera, tabla 4.2 |
 | `datos/crudos/bcra_deudores_sfa_grupo_institucional_rango_etario.xlsx` | Porcentaje de cada edad con al menos un crédito, por grupo de entidad | BCRA, Indicadores de Inclusión Financiera, hoja 4.3.4 |
-| `datos/crudos/bcra_informe_bancos_anexo.xlsx` | Mora (cartera irregular) por línea de crédito, familias y empresas | BCRA, Anexo estadístico del Informe sobre Bancos, hoja "Calidad de Cartera (por líneas)" |
-| `datos/crudos/indec_oferta_demanda_trimestral.xls` | PBI a precios corrientes, trimestral (cuadro 8, fila B1b) | INDEC, Series trimestrales de oferta y demanda globales, 2004-2026 (https://www.indec.gob.ar/Nivel4/Tema/3/9/47) |
-| `datos/crudos/bm_mora_bancaria_paises.json` | Mora bancaria total, por país | Banco Mundial, indicador FB.AST.NPER.ZS (datos del FMI, Financial Soundness Indicators), licencia CC BY 4.0 |
+| `datos/crudos/bcra_informe_bancos_anexo.xlsx` | Mora (cartera irregular) y saldo de financiaciones por línea de crédito, familias y empresas | BCRA, Anexo estadístico del Informe sobre Bancos, hoja "Calidad de Cartera (por líneas)" |
+| `datos/crudos/indec_oferta_demanda_trimestral.xls` | PBI a precios corrientes, trimestral (cuadro 8, fila B1b) | INDEC, Series trimestrales de oferta y demanda globales, 2004-2026 |
+| `datos/crudos/bm_mora_bancaria_paises.json` | Mora bancaria total, por país | Banco Mundial, indicador FB.AST.NPER.ZS (datos del FMI, Financial Soundness Indicators), licencia CC BY-4.0 |
 | `datos/crudos/eph/EPH_usu_*_Trim_*_txt/` | EPH continua, base de hogares, 1T2024 a 1T2026 (no se sube al repo por su tamaño) | INDEC, Bases de datos |
 
-Páginas de origen:
-- BCRA, Indicadores de inclusión financiera: https://www.bcra.gob.ar/indicadores-inclusion-financiera/
-- BCRA, Informe sobre Bancos (datos): https://www.bcra.gob.ar/informe-sobre-bancos/
-- INDEC, Bases de datos: https://www.indec.gob.ar/indec/web/Institucional-Indec-BasesDeDatos
-- INDEC, Oferta y demanda globales (PBI): https://www.indec.gob.ar/Nivel4/Tema/3/9/47
-- Banco Mundial, indicador FB.AST.NPER.ZS: https://data.worldbank.org/indicator/FB.AST.NPER.ZS
+## Citas y fuentes
 
-Archivos descargados el 10 y 11 de octubre de 2026.
+Datos consultados entre el 7 y el 11 de octubre de 2026. Todos los gráficos y tablas de este repositorio son elaboración propia con los datos que se citan abajo; ningún dato fue modificado en su significado.
+
+### Banco Central de la República Argentina (BCRA)
+- Banco Central de la República Argentina. *Indicadores de Inclusión Financiera: deudores del sistema financiero ampliado, por rango etario y por grupo institucional* [archivos Excel]. https://www.bcra.gob.ar/indicadores-inclusion-financiera/
+- Banco Central de la República Argentina. *Informe sobre Bancos, Anexo estadístico* (hoja "Calidad de Cartera (por líneas)": cartera irregular y saldo de financiaciones, mensual, 2010 a julio de 2026) [archivo Excel]. https://www.bcra.gob.ar/informe-sobre-bancos/
+- Banco Central de la República Argentina. *Principales tasas de interés* (series de tasas activas), vía datos.gob.ar [CSV]. https://datos.gob.ar/dataset/sspm-principales-tasas-interes
+- Condiciones de reutilización de los contenidos del BCRA (sección 3, "Propiedad intelectual y reutilización de contenidos"): https://www.bcra.gob.ar/aviso-legal/
+
+### Instituto Nacional de Estadística y Censos (INDEC)
+- Instituto Nacional de Estadística y Censos. *Índice de precios al consumidor (IPC) nacional, nivel general, base diciembre de 2016 = 100*, vía datos.gob.ar [CSV]. https://datos.gob.ar/dataset/sspm-indice-precios-al-consumidor-nacional-ipc-base-diciembre-2016
+- Instituto Nacional de Estadística y Censos. *Índice de salarios: series, números índice, octubre de 2015 a julio de 2026* [CSV]. https://www.indec.gob.ar/ftp/cuadros/sociedad/indice_salarios.csv. Metadatos de las series: https://www.indec.gob.ar/ftp/cuadros/sociedad/metadatos_series_salarios.txt
+- Instituto Nacional de Estadística y Censos. *Series trimestrales de oferta y demanda globales, 2004-2026*, cuadro 8 (producto interno bruto a precios corrientes) [archivo Excel]. https://www.indec.gob.ar/indec/web/Nivel4-Tema-3-9-47
+- Instituto Nacional de Estadística y Censos. *Encuesta Permanente de Hogares (EPH), base usuaria de hogares, 1.er trimestre de 2024 a 1.er trimestre de 2026* [microdatos]. https://www.indec.gob.ar/indec/web/Institucional-Indec-BasesDeDatos
+- Instituto Nacional de Estadística y Censos. *EPH: diseño de registro y estructura, 1T2026* (variables V14, V15, V16, PONDERA, PONDIH, DECCFR). https://www.indec.gob.ar/ftp/cuadros/menusuperior/eph/EPH_registro_1T2026.pdf
+- Instituto Nacional de Estadística y Censos (2026, 1 de octubre). *Evolución de la distribución del ingreso (EPH). Segundo trimestre de 2026* (Informes técnicos, vol. 10, n.º 243; Trabajo e ingresos, vol. 10, n.º 9; definición de estratos por decil). https://www.indec.gob.ar/uploads/informesdeprensa/ingresos2trim26B36ABAB2C6.pdf
+
+### Banco Mundial
+- Banco Mundial. *Bank nonperforming loans to total gross loans (%)*, indicador FB.AST.NPER.ZS, con datos del Fondo Monetario Internacional (Financial Soundness Indicators). https://data.worldbank.org/indicator/FB.AST.NPER.ZS
+
+### Licencias y condiciones de uso
+- **BCRA:** reutilización permitida con fines informativos, educativos o académicos, citando la fuente completa ("Banco Central de la República Argentina") y sin alterar el sentido de los contenidos (Aviso legal del BCRA, sección 3).
+- **INDEC:** las publicaciones citadas indican que se permite su reproducción con atribución de la fuente (licencia Creative Commons).
+- **Banco Mundial:** licencia CC BY-4.0 (según figura en la página del indicador FB.AST.NPER.ZS; fuente primaria: Fondo Monetario Internacional, Financial Soundness Indicators).
+- **datos.gob.ar:** los datasets citados (IPC del INDEC y tasas de interés del BCRA) están publicados en el Portal Nacional de Datos Abiertos de la República Argentina; la licencia de cada uno es la que figura en su campo "Licencia" en el portal.
+
+### Cómo citar este trabajo
+Elaboración propia con datos del Banco Central de la República Argentina, el Instituto Nacional de Estadística y Censos y el Banco Mundial (ver fuentes arriba).
 
 ### Cómo conseguir la EPH
 1. Entrar a https://www.indec.gob.ar/indec/web/Institucional-Indec-BasesDeDatos y bajar, en formato txt, la base individual y hogar de los trimestres 1T2024 a 1T2026
    (nueve archivos `EPH_usu_{trimestre}_Trim_{año}_txt.zip`, publicados en https://www.indec.gob.ar/ftp/cuadros/menusuperior/eph/).
 2. Descomprimir cada uno en su propia carpeta dentro de `datos/crudos/eph/`. El script busca el archivo `usu_hogar_*.txt` dentro de cada carpeta.
-3. El INDEC reemplazó el archivo del 4T2024 el 7 de mayo de 2025: se usa la versión vigente.
 
 ### Cómo conseguir los datos del Banco Mundial
 Una sola consulta a la API pública, que se guarda en `datos/crudos/bm_mora_bancaria_paises.json`:
@@ -176,10 +193,6 @@ curl -fL -o datos/crudos/bm_mora_bancaria_paises.json \
 
 Los agregados de América Latina y el Caribe (LCN) y del Mundo (WLD) no tienen datos para este indicador y no aparecen en los resultados.
 
-Documentación de referencia:
-- Diseño de registro y estructura de la EPH, 1T2026 (variables V14, V15, V16, PONDERA, DECCFR): https://www.indec.gob.ar/ftp/cuadros/menusuperior/eph/EPH_registro_1T2026.pdf
-- INDEC, "Evolución de la distribución del ingreso (EPH)", segundo trimestre de 2026, Informes técnicos, vol. 10, n.º 243, 1 de octubre de 2026 (definición de estratos por decil).
-
 ## Método, en resumen
 
 - Tasa nominal mensual: `i = (1 + TNA / (100 * 365)) ** 30 - 1`
@@ -190,23 +203,24 @@ Documentación de referencia:
   grandes salen de los datos mensuales sin suavizar.
 - Mora: cartera irregular (situaciones 3 a 6) sobre cartera total; familias = personas humanas sin destino comercial (definiciones de la hoja "Metodología y Referencias" del archivo del BCRA).
 - Crédito/PBI: saldo a fin de trimestre dividido por el promedio de los últimos cuatro trimestres del PBI nominal (valores a ritmo anual). Solo entidades financieras.
-- EPH: porcentaje ponderado de hogares con respuesta "sí" entre los que contestaron sí o no. Ponderador `PONDERA` (según el diseño de registro, `PONDIH` se usa solo para ingresos).
-  Decil: `DECCFR`, decil nacional del ingreso per cápita familiar.
+- EPH: porcentaje ponderado de hogares con respuesta "sí" entre los que contestaron sí o no. Ponderador `PONDERA` (la "Ponderación" de la base de hogar; el registro reserva `PONDIH` para el ingreso total familiar y el per cápita familiar). Con `PONDIH` los porcentajes por decil cambian en 1 punto o menos. Decil: `DECCFR`, decil nacional del ingreso per cápita familiar.
 
 ## Limitaciones
 
 - Es la tasa promedio del sistema informada al BCRA, no la de una entidad ni la de una persona. No incluye comisiones, seguros ni cargos.
 - La conversión de TNA a tasa mensual (capitalización cada 30 días) es una convención propia.
-- 115 observaciones mensuales y un único episodio de alta inflación. Los quiebres detectados dependen de parámetros (largo mínimo de régimen, penalización).
+- 115 observaciones mensuales (enero de 2017 a julio de 2026) y pocos episodios de tasa real extrema: cada régimen se apoya en un solo ciclo. Los quiebres detectados dependen de parámetros (largo mínimo de régimen, penalización).
+- La tasa real es ex post: usa la inflación efectivamente ocurrida en el mes (IPC nacional del INDEC), no la esperada al momento de endeudarse, y no refleja la inflación particular de cada hogar.
 - La serie de tarjetas cubre entidades financieras reguladas; los proveedores no bancarios no entran en la tasa ni en la mora.
 - La mora que se muestra coincide en el tiempo con la tasa real alta; no demuestra que una cause la otra. También influyen salarios, empleo y expansión previa del crédito.
-- La EPH cubre los 31 aglomerados urbanos y mide si el hogar recurrió al crédito, no el monto adeudado ni la mora. Un tercio de los hogares no declara ingresos y no entra en el análisis por decil.
+- La EPH cubre los 31 aglomerados urbanos y mide si el hogar recurrió al crédito (en los últimos tres meses para los préstamos, V14 y V15), no el monto adeudado ni la mora. La variable V16 pregunta si el hogar compra en cuotas o al fiado, sin plazo explícito, e incluye tarjeta de crédito y libreta, por lo que no es solo deuda de tarjeta. Un tercio de los hogares no declara ingresos y no entra en el análisis por decil.
 - Los datos de edad y de grupo de entidad del BCRA no incluyen mora, cada persona cuenta una vez por producto o grupo, y la serie cambia de nivel en julio de 2024 (la causa no figura en las notas del archivo).
 - El crédito/PBI cubre solo las entidades financieras que informan al BCRA (no fintech ni otros no bancarios) y usa el PBI nominal preliminar de 2025 y 2026; no se compara con series de otras fuentes (por ejemplo BIS), que definen el crédito de otra manera.
 - En el gráfico de cartera y mora por línea, "Otros" es una línea chica (7% de la cartera) con una mora muy alta; los porcentajes redondeados pueden sumar 101.
-- La comparación regional usa la mora de todos los préstamos bancarios, con definiciones que pueden diferir entre países; el conjunto de ocho países de la región lo definimos nosotros, y algunos tienen dato solo hasta 2024.
+- La comparación regional usa la mora de todos los préstamos bancarios, con definiciones que pueden diferir entre países; el conjunto de ocho países de la región lo definimos nosotros (Estados Unidos se agrega como referencia, pero no entra en el rango regional), y algunos tienen dato solo hasta 2024.
 
 ## Uso de inteligencia artificial
 
-Se usó Claude (Anthropic) como asistente para escribir y revisar el código de análisis, explorar los datos y revisar fuentes. Las cifras provienen de las fuentes citadas arriba.
+Se usó Claude (Anthropic) como asistente, bajo supervisión de los autores, en estas etapas: exploración de los datos, escritura y revisión del código de análisis y de los gráficos de este repositorio, revisión de fuentes y redacción de esta documentación. Las cifras provienen de las fuentes citadas arriba.
+[CONFIRMAR: indicar cómo se hizo la visualización final presentada al concurso y que fue elaborada por los autores, sin IA generativa.]
 La declaración completa del uso de IA figura en el Formulario de Inscripción del concurso.
