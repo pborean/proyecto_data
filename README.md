@@ -41,6 +41,12 @@ y el 5% en julio de 2025. Es decir, sube con unos 8 a 12 meses de demora respect
 La serie muestra que las dos cosas ocurrieron en ese orden, no que una cause la otra. La mora también subió en 2021, con tasa real baja.
 Tablas: `mora_por_producto.csv` y `mora_por_regimen.csv`.
 
+### Dónde está la mora (`scripts/17_donut_cartera_vs_mora.py`)
+Dos donuts de la cartera de las familias en julio de 2026 (entidades financieras): de cada $100 prestados y de cada $100 en mora. La cartera irregular de cada línea
+es su ratio de irregularidad por su saldo. Los préstamos personales son 31% de la cartera y 41% de la mora; las tarjetas, 32% y 32%; los hipotecarios, 25% y 3%;
+los prendarios, 5% y 3%; y "Otros", 7% y 22%. Las tarjetas no pesan más en la mora que en la cartera: lo hacen los personales y "Otros" (una línea chica, con 40% de mora).
+En septiembre de 2020 las tarjetas eran 41% de la cartera y 25% de la mora. Tabla: `cartera_vs_mora_por_linea.csv`.
+
 ### Quién presta (`scripts/10_prestamistas.py`)
 Porcentaje de los adultos con al menos un crédito en entidades financieras (bancos y compañías financieras) y en proveedores
 no financieros de crédito (tarjetas no bancarias y otros). De julio de 2024 a diciembre de 2025, las entidades financieras pasan de
@@ -49,6 +55,11 @@ no financieros de crédito (tarjetas no bancarias y otros). De julio de 2024 a d
 La serie del BCRA cambia de nivel en julio de 2024 en todos los grupos, por eso la comparación empieza ese mes.
 En diciembre de 2024 hay un traspaso entre tarjetas no bancarias y otros proveedores: se usa solo el total de proveedores no financieros.
 Una persona cuenta una vez por grupo, por lo que los grupos no se suman. Tablas: `prestamistas_grupo_institucional.csv` y `prestamistas_cambio_por_edad.csv`.
+
+**Cuándo subió, por edad** (`scripts/16_mapa_calor_edad.py`). Mapa de calor de edad por mes con el aumento, en puntos porcentuales, respecto de julio de 2024, con la misma escala para
+los dos grupos. En los proveedores no financieros el aumento es sostenido y se concentra entre los 20 y los 49 años: a los 25–39 es de +5 a +6 puntos en diciembre de 2024,
++9 a +10 en junio de 2025 y +13 a +14 en diciembre de 2025. En los bancos y compañías financieras el aumento está en los mayores de 60 (a los 65–79, de +4 en diciembre de 2024 a +9 en diciembre de 2025);
+a los 25–39 llegó a +2,5 en junio de 2025 y bajó a entre +1,4 y +2,6 en diciembre. Tabla: `mapa_calor_edad.csv`.
 
 ### Quién se endeuda
 **Por edad** (`scripts/08_deuda_por_edad.py`). Porcentaje de cada grupo de edad con al menos un crédito, por producto (tarjetas y préstamos personales).
@@ -62,6 +73,9 @@ Trimestres 2T2024 a 1T2026 (el 1T2024 aparece como referencia en el gráfico por
 - Préstamo de familia o amigos: baja con el ingreso, de 31% en el decil 1 a 7% en el decil 10.
 - Préstamo de banco o financiera: entre 10% y 16% en todos los deciles; el más bajo es el decil 10.
 - En todos los hogares, el préstamo bancario pasa de 12,5% (1T2024) a 16,4% (4T2025) y 15,6% (1T2026).
+
+`scripts/15_waffle_hogares.py` muestra esos mismos porcentajes para los deciles 1, 5 y 10 como 100 cuadraditos (cada uno es 1 de cada 100 hogares): cuotas o fiado,
+de 35 a 66 de cada 100; préstamo de familia o amigos, de 30 a 7; préstamo bancario, 12, 16 y 9. Las tres fuentes no se excluyen entre sí, por lo que cada waffle se lee por separado.
 
 La EPH registra si el hogar recurrió a cada fuente, no cuánto debe ni si está en mora. El 31,6% de los hogares (ponderados) no tiene decil de ingreso
 porque no declaró ingresos y queda afuera. Tablas: `eph_endeudamiento_decil.csv` y `eph_endeudamiento_trimestre.csv`.
@@ -86,7 +100,8 @@ contar-datos-2026/
 │   └── procesados/      panel_mensual.csv (generado por scripts/01)
 ├── scripts/             código, numerado en el orden en que se corre
 ├── resultados/
-│   ├── graficos/        regimenes_tarjetas, credito_pbi, mora_por_producto, prestamistas_edad, eph_endeudamiento_decil, deuda_por_edad, mora_regional, etc.
+│   ├── graficos/        regimenes_tarjetas, credito_pbi, mora_por_producto, prestamistas_edad, eph_endeudamiento_decil, deuda_por_edad, mora_regional,
+│   │                    waffle_hogares, mapa_calor_edad, donut_cartera_vs_mora, etc.
 │   └── tablas/          una tabla por análisis (inflacion_por_regimen.csv, mora_por_regimen.csv, etc.)
 ├── docs/                bases del concurso
 ├── requirements.txt
@@ -112,9 +127,13 @@ python3 scripts/10_prestamistas.py               # quién presta (BCRA)
 python3 scripts/11_mora_por_producto.py          # mora por producto y régimen (BCRA)
 python3 scripts/12_mora_regional.py              # mora bancaria frente a la región (Banco Mundial)
 python3 scripts/14_credito_pbi.py                # crédito de los bancos como % del PBI (BCRA e INDEC)
+python3 scripts/15_waffle_hogares.py             # waffle de hogares por fuente de crédito y decil (usa la tabla del 09)
+python3 scripts/16_mapa_calor_edad.py            # mapa de calor edad por mes (BCRA)
+python3 scripts/17_donut_cartera_vs_mora.py      # cartera y mora por línea de crédito (BCRA)
 ```
 
 La numeración salta del 06 al 08 y del 12 al 14 (no hay scripts 07 ni 13).
+El script 15 necesita que el 09 se haya corrido antes (lee `eph_endeudamiento_decil.csv`).
 `scripts/inicio.py` concentra las librerías, los colores, las rutas y las funciones comunes.
 
 ## Datos
@@ -184,6 +203,7 @@ Documentación de referencia:
 - La EPH cubre los 31 aglomerados urbanos y mide si el hogar recurrió al crédito, no el monto adeudado ni la mora. Un tercio de los hogares no declara ingresos y no entra en el análisis por decil.
 - Los datos de edad y de grupo de entidad del BCRA no incluyen mora, cada persona cuenta una vez por producto o grupo, y la serie cambia de nivel en julio de 2024 (la causa no figura en las notas del archivo).
 - El crédito/PBI cubre solo las entidades financieras que informan al BCRA (no fintech ni otros no bancarios) y usa el PBI nominal preliminar de 2025 y 2026; no se compara con series de otras fuentes (por ejemplo BIS), que definen el crédito de otra manera.
+- En el gráfico de cartera y mora por línea, "Otros" es una línea chica (7% de la cartera) con una mora muy alta; los porcentajes redondeados pueden sumar 101.
 - La comparación regional usa la mora de todos los préstamos bancarios, con definiciones que pueden diferir entre países; el conjunto de ocho países de la región lo definimos nosotros, y algunos tienen dato solo hasta 2024.
 
 ## Uso de inteligencia artificial
