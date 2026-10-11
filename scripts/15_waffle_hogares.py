@@ -46,7 +46,7 @@ for i, (var, etiqueta, color) in enumerate(FUENTES):
 fig.suptitle("De cada 100 hogares, cuántos recurrieron a cada fuente de crédito",
              x=0.02, y=0.985, ha="left", fontsize=14, fontweight="bold", color=TINTA)
 fig.text(0.02, 0.012,
-         "Fuente: INDEC, EPH continua, base de hogares (V14, V15 y V16: últimos 3 meses), trimestres de 2024 a 1T2026; elaboración propia.\n"
+         "Fuente: INDEC, EPH continua, base de hogares (V14, V15 y V16: últimos 3 meses), trimestres 1T2024 a 1T2026 juntos; elaboración propia.\n"
          "Cada cuadradito es 1 de cada 100 hogares del decil de ingreso per cápita familiar. Un hogar puede usar más de una fuente, por eso cada fila se lee por separado.\n"
          "Mide si el hogar recurrió a la fuente, no cuánto debe ni si está en mora. No incluye hogares sin ingreso declarado.",
          fontsize=8, color=GRIS, va="bottom")

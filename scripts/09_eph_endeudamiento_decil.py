@@ -2,7 +2,7 @@
 09_eph_endeudamiento_decil.py
 Qué porcentaje de los hogares recurrió al crédito en los últimos 3 meses, según el
 decil de ingreso per cápita familiar. Fuente: INDEC, EPH continua, base de hogares,
-trimestres 2T2024 a 1T2026 (régimen actual, desde abril de 2024).
+trimestres 1T2024 a 1T2026 (nueve trimestres; el 1T2024 es anterior al régimen actual, que empieza en abril de 2024).
 Variables del hogar (1 = sí, 2 = no):
   V15 = pidió préstamo a bancos o financieras
   V16 = compró en cuotas o al fiado con tarjeta de crédito o libreta
