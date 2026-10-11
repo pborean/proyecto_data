@@ -13,3 +13,7 @@ venv/
 .idea/
 datos/crudos/eph/
 bajar_eph.sh
+actualizar_repo.sh
+scripts/13_salario_real_vs_mora.py
+resultados/graficos/salario_real_vs_mora.*
+resultados/tablas/salario_real_*
